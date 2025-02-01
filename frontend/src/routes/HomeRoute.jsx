@@ -56,11 +56,11 @@ const sampleDataForPhotoList = [
     },
   },
 ];
-const HomeRoute = () => {
+const HomeRoute = ({photos,topics}) => {
   return (
     <div className="home-route">
-    <TopNavigation />
-    <PhotoList photo={sampleDataForPhotoList}
+    <TopNavigation topics={topics} />
+    <PhotoList photo={photos}
     />
     </div>
   );

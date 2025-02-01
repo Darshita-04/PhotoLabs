@@ -5,13 +5,21 @@ import "../styles/PhotoListItem.scss";
 
 
 
-const PhotoListItem = (props) => {
+const PhotoListItem = ({photo}) => {
+  const { urls, user, location } = photo;
+  const { regular:photoUrl, full } = urls || {};
+  const { name, profile } = user || {};
+  const { city, country } = location || {};
   return (
     <div className="photo-list__item">
-      <img src={props.photo.imageSource} alt="..." />
-      <img src={props.photo.profile} alt="..." />
-      <h5>{props.photo.username}</h5>
-      <p>{props.photo.location.city}, {props.photo.location.country}</p>
+      {photoUrl && <img src={photoUrl} alt="..." className="photo-list__image" /> }
+      <div className="photo-list__user-details">
+       {profile && <img className="photo-list__user-profile" src={profile} alt="..." /> }
+        <div className="photo-list__user-info">
+          <div>{name}</div>
+          <div className="photo-list__user-location">{city}, {country}</div>
+        </div>
+      </div>
     </div>
   );
 };

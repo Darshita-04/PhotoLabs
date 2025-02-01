@@ -7,7 +7,8 @@ import PhotoFavButton from "./PhotoFavButton";
 const PhotoListItem = ({photo}) => {
   const [selected, setSelected] = useState(false);
   const handleClick = () => {
-    selected ? setSelected(false) : setSelected(true);
+    // selected ? setSelected(false) : setSelected(true);
+    setSelected(prevSelected => !prevSelected);
   }
   const { urls, user, location } = photo;
   const { regular:photoUrl, full } = urls || {};

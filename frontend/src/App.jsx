@@ -8,9 +8,14 @@ import PhotoDetailsModal from "routes/PhotoDetailsModal";
 // Note: Rendering a single component to build components in isolation
 const App = () => {
   const [favorites, setFavorites] = useState([]);
+  const [visibility, setVisibility] = useState(false)
   const addFavorite = (photo) => {
     setFavorites((prevFavorites) => [...prevFavorites, photo]);
   };
+
+  const handleVisibility = () => {
+    setVisibility((prev) => !prev);
+  } 
 
   const removeFavorite = (photoId) => {
     setFavorites((prevFavorites) => 
@@ -24,8 +29,9 @@ const App = () => {
       topics={topics} 
       favorites={favorites} 
       addFavorite={addFavorite} 
-      removeFavorite={removeFavorite} />
-      <PhotoDetailsModal />
+      removeFavorite={removeFavorite} 
+      handleVisibility={handleVisibility}/>
+      {visibility && <PhotoDetailsModal />}
     </div>
   );
 };

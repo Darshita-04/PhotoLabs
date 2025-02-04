@@ -4,7 +4,8 @@ import closeSymbol from '../assets/closeSymbol.svg';
 import PhotoFavButton from 'components/PhotoFavButton';
 import PhotoList from 'components/PhotoList';
 
-const PhotoDetailsModal = ({photos,handleClose,favorites, photo,isFavorite, addFavorite, removeFavorite,handleModalVisibility}) => {
+const PhotoDetailsModal = ({photos, handleClose, favorites, photo, addFavorite, removeFavorite,handleModalVisibility}) => {
+  const isFavorite = favorites.some(fav => fav.id === photo.id)
   const handleClick = () => {
     isFavorite ? removeFavorite(photo.id) : addFavorite(photo)
   }
@@ -31,12 +32,14 @@ const PhotoDetailsModal = ({photos,handleClose,favorites, photo,isFavorite, addF
             <div className="photo-details-modal__photographer-location">{city}, {country}</div>
           </div>
         </div>
+        
+        <div className='photo-details-modal__header'>Similar Photos</div>
+        <PhotoList photos={similarPhotosArray} 
+        favorites={favorites} 
+        addFavorite={addFavorite} 
+        removeFavorite={removeFavorite}
+        handleModalVisibility={handleModalVisibility} />
       </div>
-      <PhotoList photos={similarPhotosArray} 
-      favorites={favorites} 
-      addFavorite={addFavorite} 
-      removeFavorite={removeFavorite}
-      handleModalVisibility={handleModalVisibility} />
     </div>
   )
 };

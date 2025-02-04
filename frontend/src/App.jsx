@@ -7,19 +7,14 @@ import topics from 'mocks/topics';
 // Note: Rendering a single component to build components in isolation
 const App = () => {
   const [favorites, setFavorites] = useState([]);
-  const [displayAlert, setDisplayAlert] = useState(false);
   const addFavorite = (photo) => {
-    setFavorites((prevFavorites) => [...prevFavorites, photo]);    
-    setDisplayAlert(true);
+    setFavorites((prevFavorites) => [...prevFavorites, photo]);
   };
 
   const removeFavorite = (photoId) => {
     setFavorites((prevFavorites) => 
       prevFavorites.filter(photo => photo.id !== photoId)
     );
-    if(favorites.length === 1){
-      setDisplayAlert(false);
-    }
   };
 
   return (
@@ -28,8 +23,7 @@ const App = () => {
       topics={topics} 
       favorites={favorites} 
       addFavorite={addFavorite} 
-      removeFavorite={removeFavorite} 
-      displayAlert={displayAlert} />
+      removeFavorite={removeFavorite} />
     </div>
   );
 };

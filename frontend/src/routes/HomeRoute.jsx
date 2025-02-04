@@ -3,15 +3,16 @@ import '../styles/HomeRoute.scss';
 import PhotoList from 'components/PhotoList';
 import TopNavigation from 'components/TopNavigationBar';
 
-const HomeRoute = ({photos,topics,favorites,displayAlert,addFavorite,removeFavorite}) => {
+const HomeRoute = ({photos,topics,favorites,addFavorite,removeFavorite}) => {
+  const isFavPhotoExist = favorites.length > 0;
+
   return (
     <div className="home-route">
-      <TopNavigation topics={topics} displayAlert={displayAlert} />
+      <TopNavigation topics={topics} isFavPhotoExist={isFavPhotoExist} />
       <PhotoList photos={photos} 
       favorites={favorites} 
       addFavorite={addFavorite} 
-      removeFavorite={removeFavorite}
-      displayAlert={displayAlert} />
+      removeFavorite={removeFavorite}/>
     </div>
   );
 };

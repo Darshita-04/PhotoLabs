@@ -12,7 +12,9 @@ const PhotoDetailsModal = ({photos,handleClose,favorites, photo,isFavorite, addF
   const { full } = urls || {};
   const { name, username, profile } = user || {};
   const { city, country } = location || {};
-  if (!photo) return null;
+  
+  // convert `similar_photos` object to an array
+  const similarPhotosArray = photo.similar_photos ? Object.values(photo.similar_photos) : [];
 
   return (
     <div className="photo-details-modal">
@@ -30,7 +32,7 @@ const PhotoDetailsModal = ({photos,handleClose,favorites, photo,isFavorite, addF
           </div>
         </div>
       </div>
-      <PhotoList photos={photos} 
+      <PhotoList photos={similarPhotosArray} 
       favorites={favorites} 
       addFavorite={addFavorite} 
       removeFavorite={removeFavorite}

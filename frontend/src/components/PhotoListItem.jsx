@@ -4,28 +4,28 @@ import "../styles/PhotoListItem.scss";
 import PhotoFavButton from "./PhotoFavButton";
 
 
-const PhotoListItem = ({photo}) => {
-  const [selected, setSelected] = useState(false);
+const PhotoListItem = ({photo, isFavorite, addFavorite, removeFavorite}) => {
   const handleClick = () => {
-    // selected ? setSelected(false) : setSelected(true);
-    setSelected(prevSelected => !prevSelected);
+    isFavorite ? removeFavorite(photo.id) : addFavorite(photo)
   }
   const { urls, user, location } = photo;
   const { regular:photoUrl, full } = urls || {};
-  const { name, profile } = user || {};
+  const { name, username, profile } = user || {};
   const { city, country } = location || {};
   return (
     <div className="photo-list__item">
       
-      <PhotoFavButton handleClick={handleClick} selected={selected}/>
-      {photoUrl && <img src={photoUrl} alt="..." className="photo-list__image" /> }
+      <PhotoFavButton handleClick={handleClick} isFavorite={isFavorite}/>
+      {photoUrl && <img src={photoUrl} alt={name} className="photo-list__image" /> }
       <div className="photo-list__user-details">
-       {profile && <img className="photo-list__user-profile" src={profile} alt="..." /> }
+       {profile && <img className="photo-list__user-profile" src={profile} alt={username} /> }
         <div className="photo-list__user-info">
           <div>{name}</div>
           <div className="photo-list__user-location">{city}, {country}</div>
         </div>
       </div>
+
+
     </div>
   );
 };

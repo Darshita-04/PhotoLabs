@@ -35,7 +35,10 @@ const App = () => {
       addFavorite={addFavorite} 
       removeFavorite={removeFavorite} 
       handleModalVisibility={handleModalVisibility}/>
-      {modalVisibility && <PhotoDetailsModal handleClose={handleModalVisibility} photo={selectedPhoto}/>}
+      {modalVisibility && <PhotoDetailsModal  photos={photos} favorites={favorites} 
+      addFavorite={addFavorite} 
+      removeFavorite={removeFavorite} 
+      handleModalVisibility={handleModalVisibility} handleClose={handleModalVisibility} photo={selectedPhoto}/>}
     </div>
   );
 };

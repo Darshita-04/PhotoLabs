@@ -13,8 +13,7 @@ const PhotoListItem = ({photo, isFavorite, addFavorite, removeFavorite, handleMo
   const { name, username, profile } = user || {};
   const { city, country } = location || {};
   return (
-    <div className="photo-list__item">
-      
+    <div className="photo-list__item">      
       <PhotoFavButton handleClick={handleClick} isFavorite={isFavorite}/>
       {photoUrl && <img src={photoUrl} alt={name} className="photo-list__image" onClick={() => handleModalVisibility(photo)}/> }
       <div className="photo-list__user-details">
@@ -24,8 +23,6 @@ const PhotoListItem = ({photo, isFavorite, addFavorite, removeFavorite, handleMo
           <div className="photo-list__user-location">{city}, {country}</div>
         </div>
       </div>
-
-
     </div>
   );
 };

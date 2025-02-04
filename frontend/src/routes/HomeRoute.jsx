@@ -3,7 +3,7 @@ import '../styles/HomeRoute.scss';
 import PhotoList from 'components/PhotoList';
 import TopNavigation from 'components/TopNavigationBar';
 
-const HomeRoute = ({photos,topics,favorites,addFavorite,removeFavorite, handleVisibility}) => {
+const HomeRoute = ({photos,topics,favorites,addFavorite,removeFavorite, handleModalVisibility}) => {
   const isFavPhotoExist = favorites.length > 0;
 
   return (
@@ -13,7 +13,7 @@ const HomeRoute = ({photos,topics,favorites,addFavorite,removeFavorite, handleVi
       favorites={favorites} 
       addFavorite={addFavorite} 
       removeFavorite={removeFavorite}
-      handleVisibility={handleVisibility} />
+      handleModalVisibility={handleModalVisibility} />
     </div>
   );
 };

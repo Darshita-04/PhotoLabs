@@ -3,7 +3,7 @@ import React from "react";
 import "../styles/PhotoList.scss";
 import PhotoListItem from "./PhotoListItem";
 
-const PhotoList = ({photos, favorites, addFavorite, removeFavorite, handleVisibility}) => {
+const PhotoList = ({photos, favorites, addFavorite, removeFavorite, handleModalVisibility}) => {
   const PhotoListItems = photos.map((photo) =>
     <PhotoListItem 
     key={photo.id} 
@@ -11,7 +11,7 @@ const PhotoList = ({photos, favorites, addFavorite, removeFavorite, handleVisibi
     isFavorite={favorites.some(fav => fav.id === photo.id)}
     addFavorite={addFavorite} 
     removeFavorite={removeFavorite}
-    handleVisibility={handleVisibility} />
+    handleModalVisibility={handleModalVisibility} />
   );
   return (
     <ul className="photo-list">

@@ -16,7 +16,7 @@ const PhotoListItem = ({photo, isFavorite, addFavorite, removeFavorite, handleMo
     <div className="photo-list__item">
       
       <PhotoFavButton handleClick={handleClick} isFavorite={isFavorite}/>
-      {photoUrl && <img src={photoUrl} alt={name} className="photo-list__image" onClick={handleModalVisibility}/> }
+      {photoUrl && <img src={photoUrl} alt={name} className="photo-list__image" onClick={() => handleModalVisibility(photo)}/> }
       <div className="photo-list__user-details">
        {profile && <img className="photo-list__user-profile" src={profile} alt={username} /> }
         <div className="photo-list__user-info">

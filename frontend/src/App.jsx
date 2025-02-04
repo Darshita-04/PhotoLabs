@@ -8,13 +8,17 @@ import PhotoDetailsModal from "routes/PhotoDetailsModal";
 // Note: Rendering a single component to build components in isolation
 const App = () => {
   const [favorites, setFavorites] = useState([]);
-  const [modalVisibility, setModalVisibility] = useState(false)
+  const [modalVisibility, setModalVisibility] = useState(false);
+  const [selectedPhoto, setSelectedPhoto] = useState(null);
   const addFavorite = (photo) => {
     setFavorites((prevFavorites) => [...prevFavorites, photo]);
   };
 
-  const handleModalVisibility = () => {
+  // open modal and set selected photo
+
+  const handleModalVisibility = (photo = null) => {
     setModalVisibility((prev) => !prev);
+    setSelectedPhoto(photo);
   } 
 
   const removeFavorite = (photoId) => {
@@ -31,7 +35,7 @@ const App = () => {
       addFavorite={addFavorite} 
       removeFavorite={removeFavorite} 
       handleModalVisibility={handleModalVisibility}/>
-      {modalVisibility && <PhotoDetailsModal handleClose={handleModalVisibility}/>}
+      {modalVisibility && <PhotoDetailsModal handleClose={handleModalVisibility} photo={selectedPhoto}/>}
     </div>
   );
 };

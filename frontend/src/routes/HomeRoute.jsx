@@ -3,14 +3,15 @@ import '../styles/HomeRoute.scss';
 import PhotoList from 'components/PhotoList';
 import TopNavigation from 'components/TopNavigationBar';
 
-const HomeRoute = ({photos,topics,favorites,addFavorite,removeFavorite}) => {
+const HomeRoute = ({photos,topics,favorites,displayAlert,addFavorite,removeFavorite}) => {
   return (
     <div className="home-route">
-      <TopNavigation topics={topics} />
+      <TopNavigation topics={topics} displayAlert={displayAlert} />
       <PhotoList photos={photos} 
       favorites={favorites} 
       addFavorite={addFavorite} 
-      removeFavorite={removeFavorite}/>
+      removeFavorite={removeFavorite}
+      displayAlert={displayAlert} />
     </div>
   );
 };

@@ -7,14 +7,16 @@ const HomeRoute = ({photos,topics,favorites,addFavorite,removeFavorite, handleMo
   const isFavPhotoExist = favorites.length > 0;
 
   return (
-    <div className="home-route">
+    <>    
       <TopNavigation topics={topics} isFavPhotoExist={isFavPhotoExist} />
-      <PhotoList photos={photos} 
-      favorites={favorites} 
-      addFavorite={addFavorite} 
-      removeFavorite={removeFavorite}
-      handleModalVisibility={handleModalVisibility} />
-    </div>
+      <div className="home-route">
+        <PhotoList photos={photos} 
+        favorites={favorites} 
+        addFavorite={addFavorite} 
+        removeFavorite={removeFavorite}
+        handleModalVisibility={handleModalVisibility} />
+      </div>
+    </>
   );
 };
 

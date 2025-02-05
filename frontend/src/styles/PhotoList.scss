@@ -13,3 +13,13 @@
   flex: 0 1 30%;
   margin: 5px;
 }
+@media(max-width:1199px) {
+  .photo-list {
+    gap: 20px;
+  }
+}
+@media(max-width:991px) {
+  .photo-list {
+    gap: 7px;
+  }
+}

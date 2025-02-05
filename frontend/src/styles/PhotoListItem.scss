@@ -49,3 +49,17 @@
   color: #838383;
   font-weight: 400;
 }
+
+
+@media (max-width:1440px) {
+    .photo-list__item {
+      max-width: 100%;
+      width: 28%;
+      .photo-list__image {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+      }
+    }
+  
+}

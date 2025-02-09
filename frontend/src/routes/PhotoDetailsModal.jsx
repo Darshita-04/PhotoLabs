@@ -4,11 +4,18 @@ import closeSymbol from '../assets/closeSymbol.svg';
 import PhotoFavButton from 'components/PhotoFavButton';
 import PhotoList from 'components/PhotoList';
 
-const PhotoDetailsModal = ({photos, handleClose, favorites, photo, addFavorite, removeFavorite,handleModalVisibility}) => {
-  const isFavorite = favorites.some(fav => fav.id === photo.id)
-  const handleClick = () => {
-    isFavorite ? removeFavorite(photo.id) : addFavorite(photo)
+const PhotoDetailsModal = ({handleClose, likedPhotos, photo, addFavorite, removeFavorite,handleModalVisibility}) => {
+  if (!photo) {    
+    console.error("PhotoDetailsModal: `photo` is undefined!"); // Debugging log
+
+    return null; // Don't render anything if photo is undefined
   }
+  const isFavorite = Array.isArray(likedPhotos) ? likedPhotos.includes(photo.id) : false; // Ensure favorites is an array
+  const handleClick = () => {
+    isFavorite ? removeFavorite(photo.id) : addFavorite(photo.id)
+  }
+
+
   const { urls, user, location } = photo;
   const { full } = urls || {};
   const { name, username, profile } = user || {};
@@ -16,6 +23,7 @@ const PhotoDetailsModal = ({photos, handleClose, favorites, photo, addFavorite, 
   
   // convert `similar_photos` object to an array
   const similarPhotosArray = photo.similar_photos ? Object.values(photo.similar_photos) : [];
+
 
   return (
     <div className="photo-details-modal">
@@ -34,8 +42,8 @@ const PhotoDetailsModal = ({photos, handleClose, favorites, photo, addFavorite, 
         </div>
         
         <div className='photo-details-modal__header'>Similar Photos</div>
-        <PhotoList photos={similarPhotosArray} 
-        favorites={favorites} 
+        <PhotoList photos={similarPhotosArray || []} 
+        likedPhotos={likedPhotos} 
         addFavorite={addFavorite} 
         removeFavorite={removeFavorite}
         handleModalVisibility={handleModalVisibility} />

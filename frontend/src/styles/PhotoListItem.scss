@@ -63,3 +63,10 @@
     }
   
 }
+
+@media(max-width:767px) {
+  .photo-list__item {
+    width: calc(50% - 26px);
+    padding: 10px;
+  }
+}

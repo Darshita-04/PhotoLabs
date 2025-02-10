@@ -13,7 +13,8 @@ const App = () => {
     topics,
     addFavorite,
     removeFavorite,
-    handleModalVisibility
+    handleModalVisibility,
+    fetchPhotosByTopic
   } = useApplicationData();
   const selectedPhoto = photos.find(photo => photo.id === selectedPhotoId);
 
@@ -26,6 +27,7 @@ const App = () => {
         addFavorite={addFavorite} 
         removeFavorite={removeFavorite} 
         handleModalVisibility={handleModalVisibility}
+        fetchPhotosByTopic={fetchPhotosByTopic}
       />
 
       {modalVisibility && selectedPhoto &&(

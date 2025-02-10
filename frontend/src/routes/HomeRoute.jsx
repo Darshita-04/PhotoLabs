@@ -3,12 +3,12 @@ import '../styles/HomeRoute.scss';
 import PhotoList from 'components/PhotoList';
 import TopNavigation from 'components/TopNavigationBar';
 
-const HomeRoute = ({ photos, topics, likedPhotos, addFavorite, removeFavorite, handleModalVisibility }) => {
+const HomeRoute = ({ photos, topics, likedPhotos, addFavorite, removeFavorite, handleModalVisibility,fetchPhotosByTopic }) => {
   const isFavPhotoExist = likedPhotos && likedPhotos.length > 0; // Ensure it doesn't break if undefined
 
   return (
     <>    
-      <TopNavigation topics={topics} isFavPhotoExist={isFavPhotoExist} />
+      <TopNavigation topics={topics} isFavPhotoExist={isFavPhotoExist} fetchPhotosByTopic={fetchPhotosByTopic} />
       <div className="home-route">
         <PhotoList 
           photos={photos} 

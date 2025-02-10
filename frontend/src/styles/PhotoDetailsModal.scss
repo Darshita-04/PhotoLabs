@@ -1,14 +1,15 @@
 .photo-details-modal {
   background-color: white;
   box-shadow: 0 0 0 50vmax rgba(0, 0, 0, .5);
-  position: absolute;
-  top: 55%;
+  position: fixed;
+  top: 50%;
   left: 50%;
-  transform: translate(-50%, -40%);
+  transform: translate(-50%, -50%);
   height: 80%;
-  width: 73%;
+  width: 1110px;
   overflow-y: scroll;
   border-radius: 12px;
+  z-index: 99;
 }
 
 .photo-details-modal::-webkit-scrollbar {
@@ -104,5 +105,15 @@
 @media(max-width:991px) {
   .photo-details-modal .photo-list__item {
     width: 44%;
+  }
+}
+
+@media(max-width:767px) {
+  .photo-details-modal__images {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .photo-details-modal .photo-list__item {
+    width: calc(50% - 26px);
   }
 }

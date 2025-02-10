@@ -10,7 +10,12 @@
   -moz-box-shadow: 0 4px 6px -6px #222;
   box-shadow: 0 4px 6px -6px #222;
   height: 72px;
-  background-color: #ffffff;
+  background-color: #ffffff;    
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 9;
+  box-sizing: border-box;
 }
 
 .top-nav-bar__logo {

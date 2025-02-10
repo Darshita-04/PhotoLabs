@@ -5,6 +5,7 @@ export const ACTIONS = {
   FAV_PHOTO_REMOVED: "FAV_PHOTO_REMOVED",
   SET_PHOTO_DATA: "SET_PHOTO_DATA",
   SET_TOPIC_DATA: "SET_TOPIC_DATA",
+  SET_PHOTOS_BY_TOPIC: "SET_PHOTOS_BY_TOPIC",
   SELECT_PHOTO: "SELECT_PHOTO",
   TOGGLE_MODAL: "TOGGLE_MODAL",
 };
@@ -46,6 +47,13 @@ function reducer(state, action) {
         ...state,
         topicData: action.payload,
       };
+
+    case ACTIONS.SET_PHOTOS_BY_TOPIC:
+      return { 
+        ...state, 
+        photoData: action.payload  
+      }; 
+  
 
     case ACTIONS.SELECT_PHOTO:
       return {
@@ -104,6 +112,7 @@ const useApplicationData = () => {
     fetch("http://localhost:8001/api/photos")
       .then((response) => response.json())
       .then((data) => dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: data }))
+      .catch((error) => console.error("Error fetching photos ", error));
   }, []);
 
     // fetch topics data on first render
@@ -111,8 +120,22 @@ const useApplicationData = () => {
     useEffect(() => {
       fetch("http://localhost:8001/api/topics")
         .then((response) => response.json())
-        .then((data) => dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: data }))
+        .then((data) => {
+          dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: data })
+        })
+        .catch((error) => console.error("Error fetching topics ", error));
     }, []);
+
+    // fetch topics data on first render
+
+    const fetchPhotosByTopic = (topicId) => {
+      fetch(`http://localhost:8001/api/topics/photos/${topicId}`)
+        .then((response) => response.json())
+        .then((data) => {
+          dispatch({ type: ACTIONS.SET_PHOTOS_BY_TOPIC, payload: data });
+        })
+        .catch((error) => console.error("Error fetching photos by topic:", error));
+    };
 
   return {
     likedPhotos: state.likedPhotos,
@@ -120,12 +143,13 @@ const useApplicationData = () => {
     topics: state.topicData,
     modalVisibility: state.modalVisibility,
     selectedPhotoId: state.selectedPhotoId,
+    fetchPhotosByTopic,
     handleModalVisibility,
     addFavorite,
     removeFavorite,
     setPhotoData,
     setTopicData,
-    selectPhoto,
+    selectPhoto
   };
 };
 

@@ -1,36 +1,50 @@
-import { useReducer } from "react";
+import { useReducer, useEffect } from "react";
+
 export const ACTIONS = {
-  FAV_PHOTO_ADDED: 'FAV_PHOTO_ADDED',
-  FAV_PHOTO_REMOVED: 'FAV_PHOTO_REMOVED',
-  SET_PHOTO_DATA: 'SET_PHOTO_DATA',
-  SET_TOPIC_DATA: 'SET_TOPIC_DATA',
-  SELECT_PHOTO: 'SELECT_PHOTO',
+  FAV_PHOTO_ADDED: "FAV_PHOTO_ADDED",
+  FAV_PHOTO_REMOVED: "FAV_PHOTO_REMOVED",
+  SET_PHOTO_DATA: "SET_PHOTO_DATA",
+  SET_TOPIC_DATA: "SET_TOPIC_DATA",
+  SELECT_PHOTO: "SELECT_PHOTO",
   TOGGLE_MODAL: "TOGGLE_MODAL",
-}
+};
+
+const initialState = {
+  likedPhotos: [],   
+  photoData: [],
+  topicData: [],
+  modalVisibility: false,
+  selectedPhotoId: null,
+};
+
+
+
 function reducer(state, action) {
   switch (action.type) {
     case ACTIONS.FAV_PHOTO_ADDED:
       return {
         ...state,
-        likedPhotos: [...state.likedPhotos, action.photoId],
+        likedPhotos: state.likedPhotos.includes(action.photoId)
+          ? state.likedPhotos // Prevent duplicate
+          : [...state.likedPhotos, action.photoId],
       };
 
     case ACTIONS.FAV_PHOTO_REMOVED:
       return {
         ...state,
-        likedPhotos: state.likedPhotos.filter(id => id !== action.photoId),
+        likedPhotos: state.likedPhotos.filter((id) => id !== action.photoId),
       };
 
     case ACTIONS.SET_PHOTO_DATA:
       return {
         ...state,
-        photos: action.photos,
+        photoData: action.payload,
       };
 
     case ACTIONS.SET_TOPIC_DATA:
       return {
         ...state,
-        topics: action.topics,
+        topicData: action.payload,
       };
 
     case ACTIONS.SELECT_PHOTO:
@@ -42,65 +56,68 @@ function reducer(state, action) {
     case ACTIONS.TOGGLE_MODAL:
       return {
         ...state,
-        modalVisibility: action.payload !== null, // Set to true if a photo is passed
-        selectedPhotoId: action.payload ? action.payload.id : null,
+        modalVisibility: action.modalVisibility, // Explicit boolean value
+        selectedPhotoId: action.modalVisibility ? action.photoId : null, // Reset selected photo when closing modal
       };
 
     default:
-      throw new Error(`Tried to reduce with unsupported action type: ${action.type}`);
+      throw new Error(`Unsupported action type: ${action.type}`);
   }
 }
-const initialState = {
-  likedPhotos: [],
-  photos: [],
-  topics: [],
-  displayPhotoDetails: false,
-  photoDetails: null,
-  modalVisibility: false,
-  selectedPhotoId: null,
-};
 
 const useApplicationData = () => {
-
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  // Function to add a photo to favorites
   const addFavorite = (photoId) => {
     dispatch({ type: ACTIONS.FAV_PHOTO_ADDED, photoId });
   };
 
-  // Function to remove a photo from favorites
   const removeFavorite = (photoId) => {
     dispatch({ type: ACTIONS.FAV_PHOTO_REMOVED, photoId });
   };
 
-  // Function to set the photos from an API response
   const setPhotoData = (photos) => {
     dispatch({ type: ACTIONS.SET_PHOTO_DATA, photos });
   };
 
-  // Function to set topics from an API response
   const setTopicData = (topics) => {
     dispatch({ type: ACTIONS.SET_TOPIC_DATA, topics });
   };
 
-  // Function to select a photo
   const selectPhoto = (photoId) => {
     dispatch({ type: ACTIONS.SELECT_PHOTO, photoId });
   };
 
-  // Function to display modal
+  // handle visibility of Modal
   const handleModalVisibility = (photo = null) => {
-    dispatch({ type: ACTIONS.TOGGLE_MODAL, payload: photo });
+    dispatch({ 
+      type: ACTIONS.TOGGLE_MODAL, 
+      modalVisibility: !!photo, // explicit boolean
+      photoId: photo ? photo.id : null 
+    });
   };
 
+  
+  // fetch photos data on first render
 
+  useEffect(() => {
+    fetch("http://localhost:8001/api/photos")
+      .then((response) => response.json())
+      .then((data) => dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: data }))
+  }, []);
+
+    // fetch topics data on first render
+
+    useEffect(() => {
+      fetch("http://localhost:8001/api/topics")
+        .then((response) => response.json())
+        .then((data) => dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: data }))
+    }, []);
 
   return {
     likedPhotos: state.likedPhotos,
-    photos: state.photos,
-    topics: state.topics,
-    photoDetails: state.photoDetails,
+    photos: state.photoData,
+    topics: state.topicData,
     modalVisibility: state.modalVisibility,
     selectedPhotoId: state.selectedPhotoId,
     handleModalVisibility,
@@ -108,39 +125,8 @@ const useApplicationData = () => {
     removeFavorite,
     setPhotoData,
     setTopicData,
-    selectPhoto
+    selectPhoto,
   };
-
-  // const [favorites, setFavorites] = useState([]);
-  // const [modalVisibility, setModalVisibility] = useState(false);
-  // const [selectedPhoto, setSelectedPhoto] = useState(null);
-  
-  // const addFavorite = (photo) => {
-  //   setFavorites((prevFavorites) => [...prevFavorites, photo]);
-  // };
-
-  // // open modal and set selected photo
-
-  // const handleModalVisibility = (photo = null) => {
-  //   setModalVisibility((prev) => !prev);
-  //   setSelectedPhoto(photo);
-  // } 
-
-  // const removeFavorite = (photoId) => {
-  //   setFavorites((prevFavorites) => 
-  //     prevFavorites.filter(photo => photo.id !== photoId)
-  //   );
-  // };
-
-  // return {
-  //   favorites,
-  //   modalVisibility,
-  //   selectedPhoto,
-  //   addFavorite,
-  //   handleModalVisibility,
-  //   removeFavorite
-  // };
-}
+};
 
 export default useApplicationData;
-

@@ -50,7 +50,7 @@ npm install
 ```
 #### **Backend**
 ```sh
-cd ../backend
+cd backend
 npm install
 ```
 

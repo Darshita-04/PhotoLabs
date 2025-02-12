@@ -11,6 +11,7 @@ const App = () => {
     selectedPhotoId,
     photos,
     topics,
+    selectedTopicId,
     addFavorite,
     removeFavorite,
     handleModalVisibility,
@@ -28,6 +29,7 @@ const App = () => {
         removeFavorite={removeFavorite} 
         handleModalVisibility={handleModalVisibility}
         fetchPhotosByTopic={fetchPhotosByTopic}
+        selectedTopicId={selectedTopicId}
       />
 
       {modalVisibility && selectedPhoto &&(

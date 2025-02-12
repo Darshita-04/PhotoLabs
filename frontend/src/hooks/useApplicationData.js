@@ -18,6 +18,7 @@ const initialState = {
   topicData: [],
   modalVisibility: false,
   selectedPhotoId: null,
+  selectedTopicId: null
 };
 
 // Reducer function to handle state updates based on dispatched actions
@@ -52,7 +53,8 @@ function reducer(state, action) {
     case ACTIONS.SET_PHOTOS_BY_TOPIC:
       return { 
         ...state, 
-        photoData: action.payload // Updates photo data based on selected topic
+        photoData: action.payload, // Updates photo data based on selected topic
+        selectedTopicId: action.topicId
       }; 
   
     case ACTIONS.SELECT_PHOTO:
@@ -67,7 +69,6 @@ function reducer(state, action) {
         modalVisibility: action.modalVisibility, // Controls modal visibility
         selectedPhotoId: action.modalVisibility ? action.photoId : null, // Resets selected photo when closing modal
       };
-
     default:
       throw new Error(`Unsupported action type: ${action.type}`); // Error handling for unknown actions
   }
@@ -134,7 +135,7 @@ const useApplicationData = () => {
     fetch(`http://localhost:8001/api/topics/photos/${topicId}`)
       .then((response) => response.json())
       .then((data) => {
-        dispatch({ type: ACTIONS.SET_PHOTOS_BY_TOPIC, payload: data });
+        dispatch({ type: ACTIONS.SET_PHOTOS_BY_TOPIC, payload: data,topicId});
       })
       .catch((error) => console.error("Error fetching photos by topic:", error));
   };
@@ -145,6 +146,7 @@ const useApplicationData = () => {
     topics: state.topicData,
     modalVisibility: state.modalVisibility,
     selectedPhotoId: state.selectedPhotoId,
+    selectedTopicId: state.selectedTopicId,
     fetchPhotosByTopic,
     handleModalVisibility,
     addFavorite,

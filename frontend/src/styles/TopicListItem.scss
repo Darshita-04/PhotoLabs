@@ -14,7 +14,7 @@
   color: #010101;
   transition: all 0.3s linear;
 
-  &:hover {
+  &:hover,&.active {
     text-decoration: underline;
     text-decoration-thickness: 2px;
     color: #c80000;

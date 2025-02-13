@@ -9,6 +9,7 @@ export const ACTIONS = {
   SET_PHOTOS_BY_TOPIC: "SET_PHOTOS_BY_TOPIC",
   SELECT_PHOTO: "SELECT_PHOTO",
   TOGGLE_MODAL: "TOGGLE_MODAL",
+  TOGGLE_THEME:"TOGGLE_THEME"
 };
 
 // Initial state for the application
@@ -18,7 +19,8 @@ const initialState = {
   topicData: [],
   modalVisibility: false,
   selectedPhotoId: null,
-  selectedTopicId: null
+  selectedTopicId: null,
+  theme: localStorage.getItem("theme") || "light"
 };
 
 // Reducer function to handle state updates based on dispatched actions
@@ -69,6 +71,11 @@ function reducer(state, action) {
         modalVisibility: action.modalVisibility, // Controls modal visibility
         selectedPhotoId: action.modalVisibility ? action.photoId : null, // Resets selected photo when closing modal
       };
+      
+    case ACTIONS.TOGGLE_THEME:
+        const newTheme = state.theme === "light" ? "dark" : "light";
+        localStorage.setItem("theme", newTheme); // Save preference
+        return { ...state, theme: newTheme };
     default:
       throw new Error(`Unsupported action type: ${action.type}`); // Error handling for unknown actions
   }
@@ -112,6 +119,15 @@ const useApplicationData = () => {
     });
   };
 
+  // Function to change theme
+  const toggleTheme = () => {
+    dispatch({ type: ACTIONS.TOGGLE_THEME });
+  };
+  
+  useEffect(() => {
+    document.body.className = state.theme; // Apply theme class to body
+  }, [state.theme]);
+
   // Fetches photos data when the component first mounts
   useEffect(() => {
     fetch("http://localhost:8001/api/photos")
@@ -147,13 +163,15 @@ const useApplicationData = () => {
     modalVisibility: state.modalVisibility,
     selectedPhotoId: state.selectedPhotoId,
     selectedTopicId: state.selectedTopicId,
+    theme:state.theme,
     fetchPhotosByTopic,
     handleModalVisibility,
     addFavorite,
     removeFavorite,
     setPhotoData,
     setTopicData,
-    selectPhoto
+    selectPhoto,
+    toggleTheme
   };
 };
 

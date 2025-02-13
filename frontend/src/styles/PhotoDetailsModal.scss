@@ -10,16 +10,19 @@
   overflow-y: scroll;
   border-radius: 12px;
   z-index: 99;
+  border:3px solid transparent
 }
-
+.dark .photo-details-modal {
+  background-color: #010101;
+  border-color: #3B3939;
+}
 .photo-details-modal::-webkit-scrollbar {
   width: 0;
 }
-
 .photo-details-modal__close-button {
-  background-color: white;
+  background-color: #ffffff;
   border: none;
-  color: white;
+  color: #fff;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -28,6 +31,8 @@
   margin-left: 6px;
   margin-top: 6px;
   padding: 0;
+  height: 24px;
+  border-radius: 50px;
 }
 
 .photo-details-modal__images {

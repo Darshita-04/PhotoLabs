@@ -8,7 +8,10 @@
   max-width: fit-content;
   position: relative;   
 }
-
+.dark .photo-list__item{
+  background: #1e1e1e;
+  border-color: #3b3939;
+}
 .photo-list__image {
   user-select: none;
   width: 300px;

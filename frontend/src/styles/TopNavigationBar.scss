@@ -32,3 +32,33 @@
 .dark .top-nav-bar__logo {
   color: #ffffff;
 }
+.theme-changer {
+  border: 0;
+  background: #fff;
+  width: 50px;
+  height: 25px;
+  z-index: 99;
+  border-radius: 25px;
+  margin-left:15px;
+  border: 2px solid #ddd;
+  position: relative;
+}
+.theme-changer::before {
+  content: "";
+  position: absolute;
+  left: 3px;
+  width: 17px;
+  height: 17px;
+  background: #ddd;
+  border-radius: 50%;
+  top: 2px;
+  transition: all 0.3s linear;
+}
+.dark .theme-changer {
+  background: #1e1e1e;
+  border-color: #4c4c4c;
+}
+.dark .theme-changer::before {
+  background: #4c4c4c;
+  left: 26px;
+}

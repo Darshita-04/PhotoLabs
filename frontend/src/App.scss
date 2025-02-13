@@ -28,12 +28,23 @@
 .App-link {
   color: #61dafb;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+@keyframes skeleton-loading {
+  0% {
+    background-position: -200% 0;
   }
-  to {
-    transform: rotate(360deg);
+  100% {
+    background-position: 200% 0;
   }
+}
+.photo-card {
+  width: 30%;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.topic-skeleton{
+  width: 60px;
+  height: 25px;
+  margin-left: 24px;
 }

@@ -20,7 +20,8 @@ const initialState = {
   modalVisibility: false,
   selectedPhotoId: null,
   selectedTopicId: null,
-  theme: localStorage.getItem("theme") || "light"
+  theme: localStorage.getItem("theme") || "light",
+  loading: true
 };
 
 // Reducer function to handle state updates based on dispatched actions
@@ -44,6 +45,7 @@ function reducer(state, action) {
       return {
         ...state,
         photoData: action.payload, // Updates the photo data state
+        loading: false
       };
 
     case ACTIONS.SET_TOPIC_DATA:
@@ -164,6 +166,7 @@ const useApplicationData = () => {
     selectedPhotoId: state.selectedPhotoId,
     selectedTopicId: state.selectedTopicId,
     theme:state.theme,
+    loading:state.loading,
     fetchPhotosByTopic,
     handleModalVisibility,
     addFavorite,

@@ -17,15 +17,13 @@ const App = () => {
     handleModalVisibility,
     fetchPhotosByTopic,
     toggleTheme,
-    theme
+    theme,
+    loading
   } = useApplicationData();
   const selectedPhoto = photos.find(photo => photo.id === selectedPhotoId);
 
   return (
     <div className="App">   
-      <button onClick={toggleTheme}>
-        Switch to {theme === "light" ? "Dark" : "Light"} Mode
-      </button>
       <HomeRoute 
         photos={photos} 
         topics={topics} 
@@ -35,6 +33,9 @@ const App = () => {
         handleModalVisibility={handleModalVisibility}
         fetchPhotosByTopic={fetchPhotosByTopic}
         selectedTopicId={selectedTopicId}
+        toggleTheme={toggleTheme}
+        theme={theme} 
+        loading={loading}
       />
 
       {modalVisibility && selectedPhoto &&(
